@@ -319,7 +319,9 @@ namespace Hangman
                 while (!validWord)
                 {
                     Console.Write(CenterText(text[3]));
+                    Console.ForegroundColor = ConsoleColor.Cyan;
                     word = Console.ReadLine();
+                    Console.ResetColor();
                     word = word.ToUpper();
                     //pokud znak není písmeno další pokus
                     isNotValid = !word.All(Char.IsLetter);
@@ -457,21 +459,27 @@ namespace Hangman
                     Console.SetCursorPosition(Console.WindowWidth / 2, 7);
                     Console.Write("|");
                     Console.SetCursorPosition(Console.WindowWidth / 2, 8);
+                    Console.ForegroundColor = ConsoleColor.Red;
                     Console.Write("O");
+                    Console.ResetColor();
                     break;
                 case 1:
+                    Console.ForegroundColor = ConsoleColor.Red;
                     Console.SetCursorPosition((Console.WindowWidth / 2) - 1, 9);
                     Console.Write("/");
                     Console.SetCursorPosition((Console.WindowWidth / 2) + 1, 9);
                     Console.Write("\\");
+                    Console.ResetColor();
                     break;
                 case 0:
+                    Console.ForegroundColor = ConsoleColor.Red;
                     Console.SetCursorPosition(Console.WindowWidth / 2, 9);
                     Console.Write("|");
                     Console.SetCursorPosition((Console.WindowWidth / 2) - 1, 10);
                     Console.Write("/");
                     Console.SetCursorPosition((Console.WindowWidth / 2) + 1, 10);
                     Console.Write("\\");
+                    Console.ResetColor();
                     break;
             }
         }
