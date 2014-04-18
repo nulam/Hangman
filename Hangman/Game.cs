@@ -397,6 +397,8 @@ namespace Hangman
                         ClearCurrentConsoleLine();
                         Console.SetCursorPosition(0, 22);
                         ClearCurrentConsoleLine();
+                        Console.SetCursorPosition((Console.WindowWidth - wordMsg.Length) / 2, 22);
+                        Console.Write(wordMsg);
                         Console.SetCursorPosition(0, 23);
                         ClearCurrentConsoleLine();
                         Console.Write(CenterText(text[10]));
