@@ -8,7 +8,6 @@ namespace Hangman
 {
     class LangPicker
     {
-        ConsoleColor barva;
         ConsoleKeyInfo langPick;
 
         Game ogame;
@@ -16,14 +15,12 @@ namespace Hangman
         public byte lang;
         bool picked;
         string text = "Press 1 for English, 2 for Czech, 3 for Spanish";
-        string title;
-
 
         public void DrawStart()
         {
             picked = false;
             Console.Clear();
-            Game.DrawText(text);
+            Game.DrawText(Game.CenterText(text));
         }
         
         public void StartLangPicker()
@@ -50,7 +47,7 @@ namespace Hangman
                     default: 
                         picked = false;
                         Console.Clear();
-                        Console.WriteLine(text);
+                        Console.WriteLine(Game.CenterText(text));
                         break;
                 }
             }
@@ -59,29 +56,11 @@ namespace Hangman
 
         void GoStartGame()
         {
-            switch (lang)
-            {
-                case 1:
-                    title = "ENGLISH";
-                    barva = ConsoleColor.Red;
-                    break;
-                case 2:
-                    title = "ČESKY";
-                    barva = ConsoleColor.Blue;
-                    break;
-                case 3:
-                    title = "ESPAÑOL";
-                    barva = ConsoleColor.DarkYellow;
-                    break;
-                default:
-                    Console.Clear();
-                    Console.WriteLine("You should not be seeing this, report to dev");
-                    break;
-            }
+           
             picked = false;
             while (!picked)
             {
-                ogame = new Game(title, barva, lang);
+                ogame = new Game(lang);
                 if (!ogame.DecideNewGame())
                 {
                     picked = true;

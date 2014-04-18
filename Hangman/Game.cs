@@ -196,6 +196,25 @@ namespace Hangman
             //smazání vrchního řádku
             Console.SetCursorPosition(0, 0);
             Console.BackgroundColor = ConsoleColor.White;
+            switch (language)
+            {
+                case 1:
+                    title = "ENGLISH";
+                    color = ConsoleColor.Red;
+                    break;
+                case 2:
+                    title = "ČESKY";
+                    color = ConsoleColor.Blue;
+                    break;
+                case 3:
+                    title = "ESPAÑOL";
+                    color = ConsoleColor.DarkYellow;
+                    break;
+                default:
+                    Console.Clear();
+                    Console.WriteLine("You should not be seeing this, report to dev");
+                    break;
+            }
             for (int i = 0; i < Console.WindowWidth; i++)
                 Console.Write(" ");
             //vykreslení nápisu jazyka
@@ -239,7 +258,7 @@ namespace Hangman
         /// <param name="title">Language title</param>
         /// <param name="color">Color of the title</param>
         /// <param name="lang">Byte number of the language</param>
-        public Game(string title, ConsoleColor color, byte lang)
+        public Game(byte lang)
         {
             Console.Clear();
             usedLetters = "";
@@ -249,11 +268,8 @@ namespace Hangman
             curIndex = 0;
             nahoda = new Random();
             isNotValid = false;
-            this.title = title;
-            this.color = color;
-            DrawTitle();
-            //zařazení slovníku daného jazyka
             language = lang;
+            //zařazení slovníku daného jazyka
             if (lang == 1)
             {
                 text = textEN;
@@ -269,6 +285,7 @@ namespace Hangman
                 text = textES;
                 words = wordsES;
             }
+            DrawTitle();
             GetWord();
         }
         public void DrawQuestion()
@@ -287,9 +304,9 @@ namespace Hangman
                 word = word.ToUpper();
                 Console.Clear();
                 DrawTitle();
-                DrawText(text[1] + word.Length);
+                DrawText(CenterText(text[1] +" "+ word.Length));
                 Console.WriteLine();
-                DrawText(text[2]);
+                DrawText(CenterText(text[2]));
                 Console.ReadKey();
                 Console.Clear();
                 DrawTitle();
@@ -301,7 +318,7 @@ namespace Hangman
                 validWord = false;
                 while (!validWord)
                 {
-                    Console.Write(text[3]);
+                    Console.Write(CenterText(text[3]));
                     word = Console.ReadLine();
                     word = word.ToUpper();
                     //pokud znak není písmeno další pokus
@@ -310,19 +327,19 @@ namespace Hangman
                     if (word.Contains(" ") || isNotValid)
                     {
                         //cant use numerals and spaces
-                        DrawText(text[4]);
+                        DrawText(CenterText(text[4]));
                         Console.WriteLine();
                         //press any button
-                        DrawText(text[2]);
+                        DrawText(CenterText(text[2]));
                         Console.ReadKey();
                         Console.Clear();
                         DrawTitle();
                     }
                     else
                     {
-                        DrawText(text[1] + word.Length);
+                        DrawText(CenterText(text[1]+" "+word.Length));
                         Console.WriteLine();
-                        DrawText(text[2]);
+                        DrawText(CenterText(text[2]));
                         Console.ReadKey();
                         Console.Clear();
                         DrawTitle();
@@ -335,11 +352,12 @@ namespace Hangman
             PlayGame();
         }
 
+
         private bool DecideMode()
         {
             //rozhodne o pouzitem modu
             picked = false;
-            DrawText(text[0]);
+            DrawText(CenterText(text[0]));
             //samotny vyber
             while (!picked)
             {
@@ -358,7 +376,7 @@ namespace Hangman
                 {
                     Console.Clear();
                     DrawTitle();
-                    Console.Write(text[0]);
+                    Console.Write(CenterText(text[0]));
                 }
             }
             return false;
